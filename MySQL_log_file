@@ -1,0 +1,290 @@
+(0.000) SET SQL_AUTO_IS_NULL = 0; args=None
+(0.000) SET SQL_AUTO_IS_NULL = 0; args=None
+(0.000) SET SQL_AUTO_IS_NULL = 0; args=None
+(0.000) SHOW FULL TABLES; args=None
+CREATE TABLE `django_migrations` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `app` varchar(255) NOT NULL, `name` varchar(255) NOT NULL, `applied` datetime(6) NOT NULL); (params None)
+(0.434) CREATE TABLE `django_migrations` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `app` varchar(255) NOT NULL, `name` varchar(255) NOT NULL, `applied` datetime(6) NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'django_migrations'; args=[u'django_migrations']
+(0.009) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+CREATE TABLE `Courses_course` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `CourseName` varchar(100) NULL, `BranchName` varchar(100) NULL, `HOD` varchar(150) NULL); (params None)
+(0.265) CREATE TABLE `Courses_course` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `CourseName` varchar(100) NULL, `BranchName` varchar(100) NULL, `HOD` varchar(150) NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'Courses_course'; args=[u'Courses_course']
+(0.001) SHOW FULL TABLES; args=None
+(0.015) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Courses', '0001_initial', '2017-02-27 20:11:19.817497'); args=['Courses', u'0001_initial', u'2017-02-27 20:11:19.817497']
+CREATE TABLE `Subjects_subject` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `SubjectName` varchar(200) NULL, `SubjectCode` varchar(20) NULL UNIQUE, `Course_id` integer NULL); (params None)
+(0.383) CREATE TABLE `Subjects_subject` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `SubjectName` varchar(200) NULL, `SubjectCode` varchar(20) NULL UNIQUE, `Course_id` integer NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'Subjects_subject'; args=[u'Subjects_subject']
+ALTER TABLE `Subjects_subject` ADD CONSTRAINT `Subjects_subject_Course_id_274655b4_fk_Courses_course_id` FOREIGN KEY (`Course_id`) REFERENCES `Courses_course` (`id`); (params [])
+(0.803) ALTER TABLE `Subjects_subject` ADD CONSTRAINT `Subjects_subject_Course_id_274655b4_fk_Courses_course_id` FOREIGN KEY (`Course_id`) REFERENCES `Courses_course` (`id`); args=[]
+(0.000) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Subjects', '0001_initial', '2017-02-27 20:11:21.088033'); args=['Subjects', u'0001_initial', u'2017-02-27 20:11:21.088033']
+CREATE TABLE `Students_student` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `RollNo` varchar(50) NOT NULL UNIQUE, `Name` varchar(200) NOT NULL, `DateOfBirth` date NULL, `Course_id` integer NULL); (params None)
+(0.381) CREATE TABLE `Students_student` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `RollNo` varchar(50) NOT NULL UNIQUE, `Name` varchar(200) NOT NULL, `DateOfBirth` date NULL, `Course_id` integer NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'Students_student'; args=[u'Students_student']
+CREATE TABLE `Students_student_Subjects` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `student_id` integer NOT NULL, `subject_id` integer NOT NULL); (params None)
+(0.262) CREATE TABLE `Students_student_Subjects` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `student_id` integer NOT NULL, `subject_id` integer NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'Students_student_Subjects'; args=[u'Students_student_Subjects']
+ALTER TABLE `Students_student` ADD CONSTRAINT `Students_student_Course_id_9e14f7dc_fk_Courses_course_id` FOREIGN KEY (`Course_id`) REFERENCES `Courses_course` (`id`); (params [])
+(0.869) ALTER TABLE `Students_student` ADD CONSTRAINT `Students_student_Course_id_9e14f7dc_fk_Courses_course_id` FOREIGN KEY (`Course_id`) REFERENCES `Courses_course` (`id`); args=[]
+ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_student_id_bdcc7fd0_fk_Students_student_id` FOREIGN KEY (`student_id`) REFERENCES `Students_student` (`id`); (params [])
+(0.772) ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_student_id_bdcc7fd0_fk_Students_student_id` FOREIGN KEY (`student_id`) REFERENCES `Students_student` (`id`); args=[]
+ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_subject_id_ea462349_fk_Subjects_subject_id` FOREIGN KEY (`subject_id`) REFERENCES `Subjects_subject` (`id`); (params [])
+(0.728) ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_subject_id_ea462349_fk_Subjects_subject_id` FOREIGN KEY (`subject_id`) REFERENCES `Subjects_subject` (`id`); args=[]
+ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subjects_student_id_131d1b97_uniq` UNIQUE (`student_id`, `subject_id`); (params [])
+(0.344) ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subjects_student_id_131d1b97_uniq` UNIQUE (`student_id`, `subject_id`); args=[]
+(0.000) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Students', '0001_initial', '2017-02-27 20:11:24.546561'); args=['Students', u'0001_initial', u'2017-02-27 20:11:24.546561']
+CREATE TABLE `Facilities_library` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `BookName` varchar(200) NULL, `RenewalsLeft` smallint NULL, `IssueId_id` integer NOT NULL UNIQUE); (params None)
+(0.330) CREATE TABLE `Facilities_library` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `BookName` varchar(200) NULL, `RenewalsLeft` smallint NULL, `IssueId_id` integer NOT NULL UNIQUE); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'Facilities_library'; args=[u'Facilities_library']
+CREATE TABLE `Facilities_sports` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `SportsName` varchar(100) NULL, `NumberOfItems` integer NULL, `IssueID_id` integer NOT NULL UNIQUE); (params None)
+(0.368) CREATE TABLE `Facilities_sports` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `SportsName` varchar(100) NULL, `NumberOfItems` integer NULL, `IssueID_id` integer NOT NULL UNIQUE); args=None
+(0.001) SELECT engine FROM information_schema.tables WHERE table_name = 'Facilities_sports'; args=[u'Facilities_sports']
+ALTER TABLE `Facilities_library` ADD CONSTRAINT `Facilities_library_IssueId_id_48e593bd_fk_Students_student_id` FOREIGN KEY (`IssueId_id`) REFERENCES `Students_student` (`id`); (params [])
+(0.746) ALTER TABLE `Facilities_library` ADD CONSTRAINT `Facilities_library_IssueId_id_48e593bd_fk_Students_student_id` FOREIGN KEY (`IssueId_id`) REFERENCES `Students_student` (`id`); args=[]
+ALTER TABLE `Facilities_sports` ADD CONSTRAINT `Facilities_sports_IssueID_id_7e31850c_fk_Students_student_id` FOREIGN KEY (`IssueID_id`) REFERENCES `Students_student` (`id`); (params [])
+(0.772) ALTER TABLE `Facilities_sports` ADD CONSTRAINT `Facilities_sports_IssueID_id_7e31850c_fk_Students_student_id` FOREIGN KEY (`IssueID_id`) REFERENCES `Students_student` (`id`); args=[]
+(0.001) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Facilities', '0001_initial', '2017-02-27 20:11:26.857245'); args=['Facilities', u'0001_initial', u'2017-02-27 20:11:26.857245']
+(0.002) 
+            SELECT kc.`constraint_name`, kc.`column_name`,
+                kc.`referenced_table_name`, kc.`referenced_column_name`
+            FROM information_schema.key_column_usage AS kc
+            WHERE
+                kc.table_schema = 'UniversityDb' AND
+                kc.table_name = 'Facilities_library'
+        ; args=['UniversityDb', u'Facilities_library']
+(0.000) 
+            SELECT c.constraint_name, c.constraint_type
+            FROM information_schema.table_constraints AS c
+            WHERE
+                c.table_schema = 'UniversityDb' AND
+                c.table_name = 'Facilities_library'
+        ; args=['UniversityDb', u'Facilities_library']
+(0.000) SHOW INDEX FROM `Facilities_library`; args=None
+ALTER TABLE `Facilities_library` DROP FOREIGN KEY `Facilities_library_IssueId_id_48e593bd_fk_Students_student_id`; (params [])
+(0.073) ALTER TABLE `Facilities_library` DROP FOREIGN KEY `Facilities_library_IssueId_id_48e593bd_fk_Students_student_id`; args=[]
+ALTER TABLE `Facilities_library` ADD CONSTRAINT `Facilities_library_IssueId_id_48e593bd_fk_Students_student_id` FOREIGN KEY (`IssueId_id`) REFERENCES `Students_student` (`id`); (params [])
+(0.751) ALTER TABLE `Facilities_library` ADD CONSTRAINT `Facilities_library_IssueId_id_48e593bd_fk_Students_student_id` FOREIGN KEY (`IssueId_id`) REFERENCES `Students_student` (`id`); args=[]
+(0.001) 
+            SELECT kc.`constraint_name`, kc.`column_name`,
+                kc.`referenced_table_name`, kc.`referenced_column_name`
+            FROM information_schema.key_column_usage AS kc
+            WHERE
+                kc.table_schema = 'UniversityDb' AND
+                kc.table_name = 'Facilities_sports'
+        ; args=['UniversityDb', u'Facilities_sports']
+(0.000) 
+            SELECT c.constraint_name, c.constraint_type
+            FROM information_schema.table_constraints AS c
+            WHERE
+                c.table_schema = 'UniversityDb' AND
+                c.table_name = 'Facilities_sports'
+        ; args=['UniversityDb', u'Facilities_sports']
+(0.000) SHOW INDEX FROM `Facilities_sports`; args=None
+ALTER TABLE `Facilities_sports` DROP FOREIGN KEY `Facilities_sports_IssueID_id_7e31850c_fk_Students_student_id`; (params [])
+(0.076) ALTER TABLE `Facilities_sports` DROP FOREIGN KEY `Facilities_sports_IssueID_id_7e31850c_fk_Students_student_id`; args=[]
+ALTER TABLE `Facilities_sports` ADD CONSTRAINT `Facilities_sports_IssueID_id_7e31850c_fk_Students_student_id` FOREIGN KEY (`IssueID_id`) REFERENCES `Students_student` (`id`); (params [])
+(0.716) ALTER TABLE `Facilities_sports` ADD CONSTRAINT `Facilities_sports_IssueID_id_7e31850c_fk_Students_student_id` FOREIGN KEY (`IssueID_id`) REFERENCES `Students_student` (`id`); args=[]
+(0.002) SHOW FULL TABLES; args=None
+(0.001) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Facilities', '0002_auto_20170226_1928', '2017-02-27 20:11:28.572510'); args=['Facilities', u'0002_auto_20170226_1928', u'2017-02-27 20:11:28.572510']
+(0.001) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Facilities', '0003_auto_20170226_2016', '2017-02-27 20:11:28.645506'); args=['Facilities', u'0003_auto_20170226_2016', u'2017-02-27 20:11:28.645506']
+(0.001) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Facilities', '0004_auto_20170226_2020', '2017-02-27 20:11:28.735540'); args=['Facilities', u'0004_auto_20170226_2020', u'2017-02-27 20:11:28.735540']
+(0.001) 
+            SELECT kc.`constraint_name`, kc.`column_name`,
+                kc.`referenced_table_name`, kc.`referenced_column_name`
+            FROM information_schema.key_column_usage AS kc
+            WHERE
+                kc.table_schema = 'UniversityDb' AND
+                kc.table_name = 'Students_student_Subjects'
+        ; args=['UniversityDb', u'Students_student_Subjects']
+(0.000) 
+            SELECT c.constraint_name, c.constraint_type
+            FROM information_schema.table_constraints AS c
+            WHERE
+                c.table_schema = 'UniversityDb' AND
+                c.table_name = 'Students_student_Subjects'
+        ; args=['UniversityDb', u'Students_student_Subjects']
+(0.000) SHOW INDEX FROM `Students_student_Subjects`; args=None
+ALTER TABLE `Students_student_Subjects` DROP FOREIGN KEY `Students_student_Subj_subject_id_ea462349_fk_Subjects_subject_id`; (params [])
+(0.072) ALTER TABLE `Students_student_Subjects` DROP FOREIGN KEY `Students_student_Subj_subject_id_ea462349_fk_Subjects_subject_id`; args=[]
+ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_subject_id_ea462349_fk_Subjects_subject_id` FOREIGN KEY (`subject_id`) REFERENCES `Subjects_subject` (`id`); (params [])
+(0.830) ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_subject_id_ea462349_fk_Subjects_subject_id` FOREIGN KEY (`subject_id`) REFERENCES `Subjects_subject` (`id`); args=[]
+(0.003) 
+            SELECT kc.`constraint_name`, kc.`column_name`,
+                kc.`referenced_table_name`, kc.`referenced_column_name`
+            FROM information_schema.key_column_usage AS kc
+            WHERE
+                kc.table_schema = 'UniversityDb' AND
+                kc.table_name = 'Students_student_Subjects'
+        ; args=['UniversityDb', u'Students_student_Subjects']
+(0.001) 
+            SELECT c.constraint_name, c.constraint_type
+            FROM information_schema.table_constraints AS c
+            WHERE
+                c.table_schema = 'UniversityDb' AND
+                c.table_name = 'Students_student_Subjects'
+        ; args=['UniversityDb', u'Students_student_Subjects']
+(0.001) SHOW INDEX FROM `Students_student_Subjects`; args=None
+ALTER TABLE `Students_student_Subjects` DROP FOREIGN KEY `Students_student_Subj_student_id_bdcc7fd0_fk_Students_student_id`; (params [])
+(0.079) ALTER TABLE `Students_student_Subjects` DROP FOREIGN KEY `Students_student_Subj_student_id_bdcc7fd0_fk_Students_student_id`; args=[]
+ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_student_id_bdcc7fd0_fk_Students_student_id` FOREIGN KEY (`student_id`) REFERENCES `Students_student` (`id`); (params [])
+(0.795) ALTER TABLE `Students_student_Subjects` ADD CONSTRAINT `Students_student_Subj_student_id_bdcc7fd0_fk_Students_student_id` FOREIGN KEY (`student_id`) REFERENCES `Students_student` (`id`); args=[]
+(0.000) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('Students', '0002_auto_20170226_1928', '2017-02-27 20:11:30.584021'); args=['Students', u'0002_auto_20170226_1928', u'2017-02-27 20:11:30.584021']
+CREATE TABLE `django_content_type` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(100) NOT NULL, `app_label` varchar(100) NOT NULL, `model` varchar(100) NOT NULL); (params None)
+(0.310) CREATE TABLE `django_content_type` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(100) NOT NULL, `app_label` varchar(100) NOT NULL, `model` varchar(100) NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'django_content_type'; args=[u'django_content_type']
+ALTER TABLE `django_content_type` ADD CONSTRAINT `django_content_type_app_label_76bd3d3b_uniq` UNIQUE (`app_label`, `model`); (params [])
+(0.240) ALTER TABLE `django_content_type` ADD CONSTRAINT `django_content_type_app_label_76bd3d3b_uniq` UNIQUE (`app_label`, `model`); args=[]
+(0.000) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('contenttypes', '0001_initial', '2017-02-27 20:11:31.198692'); args=['contenttypes', u'0001_initial', u'2017-02-27 20:11:31.198692']
+CREATE TABLE `auth_permission` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(50) NOT NULL, `content_type_id` integer NOT NULL, `codename` varchar(100) NOT NULL); (params None)
+(0.329) CREATE TABLE `auth_permission` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(50) NOT NULL, `content_type_id` integer NOT NULL, `codename` varchar(100) NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'auth_permission'; args=[u'auth_permission']
+CREATE TABLE `auth_group` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(80) NOT NULL UNIQUE); (params None)
+(0.296) CREATE TABLE `auth_group` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(80) NOT NULL UNIQUE); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'auth_group'; args=[u'auth_group']
+CREATE TABLE `auth_group_permissions` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `group_id` integer NOT NULL, `permission_id` integer NOT NULL); (params None)
+(0.286) CREATE TABLE `auth_group_permissions` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `group_id` integer NOT NULL, `permission_id` integer NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'auth_group_permissions'; args=[u'auth_group_permissions']
+CREATE TABLE `auth_user` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `password` varchar(128) NOT NULL, `last_login` datetime(6) NOT NULL, `is_superuser` bool NOT NULL, `username` varchar(30) NOT NULL UNIQUE, `first_name` varchar(30) NOT NULL, `last_name` varchar(30) NOT NULL, `email` varchar(75) NOT NULL, `is_staff` bool NOT NULL, `is_active` bool NOT NULL, `date_joined` datetime(6) NOT NULL); (params None)
+(0.386) CREATE TABLE `auth_user` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `password` varchar(128) NOT NULL, `last_login` datetime(6) NOT NULL, `is_superuser` bool NOT NULL, `username` varchar(30) NOT NULL UNIQUE, `first_name` varchar(30) NOT NULL, `last_name` varchar(30) NOT NULL, `email` varchar(75) NOT NULL, `is_staff` bool NOT NULL, `is_active` bool NOT NULL, `date_joined` datetime(6) NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'auth_user'; args=[u'auth_user']
+CREATE TABLE `auth_user_groups` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `user_id` integer NOT NULL, `group_id` integer NOT NULL); (params None)
+(0.285) CREATE TABLE `auth_user_groups` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `user_id` integer NOT NULL, `group_id` integer NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'auth_user_groups'; args=[u'auth_user_groups']
+CREATE TABLE `auth_user_user_permissions` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `user_id` integer NOT NULL, `permission_id` integer NOT NULL); (params None)
+(0.241) CREATE TABLE `auth_user_user_permissions` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `user_id` integer NOT NULL, `permission_id` integer NOT NULL); args=None
+(0.002) SELECT engine FROM information_schema.tables WHERE table_name = 'auth_user_user_permissions'; args=[u'auth_user_user_permissions']
+ALTER TABLE `auth_permission` ADD CONSTRAINT `auth_permissi_content_type_id_2f476e4b_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`); (params [])
+(0.736) ALTER TABLE `auth_permission` ADD CONSTRAINT `auth_permissi_content_type_id_2f476e4b_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`); args=[]
+ALTER TABLE `auth_permission` ADD CONSTRAINT `auth_permission_content_type_id_01ab375a_uniq` UNIQUE (`content_type_id`, `codename`); (params [])
+(0.357) ALTER TABLE `auth_permission` ADD CONSTRAINT `auth_permission_content_type_id_01ab375a_uniq` UNIQUE (`content_type_id`, `codename`); args=[]
+ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`); (params [])
+(0.716) ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`); args=[]
+ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`); (params [])
+(0.803) ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `auth_group_permissi_permission_id_84c5c92e_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`); args=[]
+ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `auth_group_permissions_group_id_0cd325b0_uniq` UNIQUE (`group_id`, `permission_id`); (params [])
+(0.346) ALTER TABLE `auth_group_permissions` ADD CONSTRAINT `auth_group_permissions_group_id_0cd325b0_uniq` UNIQUE (`group_id`, `permission_id`); args=[]
+ALTER TABLE `auth_user_groups` ADD CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`); (params [])
+(0.749) ALTER TABLE `auth_user_groups` ADD CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`); args=[]
+ALTER TABLE `auth_user_groups` ADD CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`); (params [])
+(0.882) ALTER TABLE `auth_user_groups` ADD CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`); args=[]
+ALTER TABLE `auth_user_groups` ADD CONSTRAINT `auth_user_groups_user_id_94350c0c_uniq` UNIQUE (`user_id`, `group_id`); (params [])
+(0.336) ALTER TABLE `auth_user_groups` ADD CONSTRAINT `auth_user_groups_user_id_94350c0c_uniq` UNIQUE (`user_id`, `group_id`); args=[]
+ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`); (params [])
+(0.747) ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`); args=[]
+ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `auth_user_user_perm_permission_id_1fbb5f2c_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`); (params [])
+(0.716) ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `auth_user_user_perm_permission_id_1fbb5f2c_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`); args=[]
+ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `auth_user_user_permissions_user_id_14a6b632_uniq` UNIQUE (`user_id`, `permission_id`); (params [])
+(0.303) ALTER TABLE `auth_user_user_permissions` ADD CONSTRAINT `auth_user_user_permissions_user_id_14a6b632_uniq` UNIQUE (`user_id`, `permission_id`); args=[]
+(0.002) SHOW FULL TABLES; args=None
+(0.001) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('auth', '0001_initial', '2017-02-27 20:11:39.845173'); args=['auth', u'0001_initial', u'2017-02-27 20:11:39.845173']
+CREATE TABLE `django_admin_log` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `action_time` datetime(6) NOT NULL, `object_id` longtext NULL, `object_repr` varchar(200) NOT NULL, `action_flag` smallint UNSIGNED NOT NULL, `change_message` longtext NOT NULL, `content_type_id` integer NULL, `user_id` integer NOT NULL); (params None)
+(0.306) CREATE TABLE `django_admin_log` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `action_time` datetime(6) NOT NULL, `object_id` longtext NULL, `object_repr` varchar(200) NOT NULL, `action_flag` smallint UNSIGNED NOT NULL, `change_message` longtext NOT NULL, `content_type_id` integer NULL, `user_id` integer NOT NULL); args=None
+(0.001) SELECT engine FROM information_schema.tables WHERE table_name = 'django_admin_log'; args=[u'django_admin_log']
+ALTER TABLE `django_admin_log` ADD CONSTRAINT `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`); (params [])
+(0.736) ALTER TABLE `django_admin_log` ADD CONSTRAINT `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`); args=[]
+ALTER TABLE `django_admin_log` ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`); (params [])
+(0.804) ALTER TABLE `django_admin_log` ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`); args=[]
+(0.002) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('admin', '0001_initial', '2017-02-27 20:11:41.780691'); args=['admin', u'0001_initial', u'2017-02-27 20:11:41.780691']
+ALTER TABLE `django_admin_log` ALTER COLUMN `action_time` SET DEFAULT %s; (params [u'2017-02-27 20:11:41.863803'])
+(0.047) ALTER TABLE `django_admin_log` ALTER COLUMN `action_time` SET DEFAULT '2017-02-27 20:11:41.863803'; args=[u'2017-02-27 20:11:41.863803']
+ALTER TABLE `django_admin_log` ALTER COLUMN `action_time` DROP DEFAULT; (params [])
+(0.045) ALTER TABLE `django_admin_log` ALTER COLUMN `action_time` DROP DEFAULT; args=[]
+(0.002) SHOW FULL TABLES; args=None
+(0.001) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('admin', '0002_logentry_remove_auto_add', '2017-02-27 20:11:41.960277'); args=['admin', u'0002_logentry_remove_auto_add', u'2017-02-27 20:11:41.960277']
+ALTER TABLE `django_content_type` MODIFY `name` varchar(100) NULL; (params [])
+(0.587) ALTER TABLE `django_content_type` MODIFY `name` varchar(100) NULL; args=[]
+ALTER TABLE `django_content_type` DROP COLUMN `name` CASCADE; (params [])
+(0.549) ALTER TABLE `django_content_type` DROP COLUMN `name` CASCADE; args=[]
+(0.001) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('contenttypes', '0002_remove_content_type_name', '2017-02-27 20:11:43.199205'); args=['contenttypes', u'0002_remove_content_type_name', u'2017-02-27 20:11:43.199205']
+ALTER TABLE `auth_permission` MODIFY `name` varchar(255) NOT NULL; (params [])
+(0.750) ALTER TABLE `auth_permission` MODIFY `name` varchar(255) NOT NULL; args=[]
+(0.002) SHOW FULL TABLES; args=None
+(0.001) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('auth', '0002_alter_permission_name_max_length', '2017-02-27 20:11:44.010557'); args=['auth', u'0002_alter_permission_name_max_length', u'2017-02-27 20:11:44.010557']
+ALTER TABLE `auth_user` MODIFY `email` varchar(254) NOT NULL; (params [])
+(0.761) ALTER TABLE `auth_user` MODIFY `email` varchar(254) NOT NULL; args=[]
+(0.002) SHOW FULL TABLES; args=None
+(0.001) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('auth', '0003_alter_user_email_max_length', '2017-02-27 20:11:44.869972'); args=['auth', u'0003_alter_user_email_max_length', u'2017-02-27 20:11:44.869972']
+(0.001) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('auth', '0004_alter_user_username_opts', '2017-02-27 20:11:44.952238'); args=['auth', u'0004_alter_user_username_opts', u'2017-02-27 20:11:44.952238']
+ALTER TABLE `auth_user` MODIFY `last_login` datetime(6) NULL; (params [])
+(0.566) ALTER TABLE `auth_user` MODIFY `last_login` datetime(6) NULL; args=[]
+(0.000) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('auth', '0005_alter_user_last_login_null', '2017-02-27 20:11:45.572228'); args=['auth', u'0005_alter_user_last_login_null', u'2017-02-27 20:11:45.572228']
+(0.000) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('auth', '0006_require_contenttypes_0002', '2017-02-27 20:11:45.606211'); args=['auth', u'0006_require_contenttypes_0002', u'2017-02-27 20:11:45.606211']
+(0.001) SHOW FULL TABLES; args=None
+(0.001) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('auth', '0007_alter_validators_add_error_messages', '2017-02-27 20:11:45.664314'); args=['auth', u'0007_alter_validators_add_error_messages', u'2017-02-27 20:11:45.664314']
+CREATE TABLE `django_session` (`session_key` varchar(40) NOT NULL PRIMARY KEY, `session_data` longtext NOT NULL, `expire_date` datetime(6) NOT NULL); (params None)
+(0.292) CREATE TABLE `django_session` (`session_key` varchar(40) NOT NULL PRIMARY KEY, `session_data` longtext NOT NULL, `expire_date` datetime(6) NOT NULL); args=None
+(0.001) SELECT engine FROM information_schema.tables WHERE table_name = 'django_session'; args=[u'django_session']
+CREATE INDEX `django_session_de54fa62` ON `django_session` (`expire_date`); (params [])
+(0.220) CREATE INDEX `django_session_de54fa62` ON `django_session` (`expire_date`); args=[]
+(0.001) SHOW FULL TABLES; args=None
+(0.000) INSERT INTO `django_migrations` (`app`, `name`, `applied`) VALUES ('sessions', '0001_initial', '2017-02-27 20:11:46.232111'); args=['sessions', u'0001_initial', u'2017-02-27 20:11:46.232111']
+(0.001) SHOW FULL TABLES; args=None
+(0.001) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'logentry' AND `django_content_type`.`app_label` = 'admin'); args=('logentry', 'admin')
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'logentry' AND `django_content_type`.`app_label` = 'admin'); args=('logentry', 'admin')
+(0.000) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('admin', 'logentry'); args=['admin', 'logentry']
+(0.002) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (1) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(1,)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add log entry', 1, 'add_logentry'), ('Can change log entry', 1, 'change_logentry'), ('Can delete log entry', 1, 'delete_logentry'); args=(u'Can add log entry', 1, u'add_logentry', u'Can change log entry', 1, u'change_logentry', u'Can delete log entry', 1, u'delete_logentry')
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'admin'; args=('admin',)
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'permission' AND `django_content_type`.`app_label` = 'auth'); args=('permission', 'auth')
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'permission' AND `django_content_type`.`app_label` = 'auth'); args=('permission', 'auth')
+(0.000) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('auth', 'permission'); args=['auth', 'permission']
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'group' AND `django_content_type`.`app_label` = 'auth'); args=('group', 'auth')
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'group' AND `django_content_type`.`app_label` = 'auth'); args=('group', 'auth')
+(0.000) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('auth', 'group'); args=['auth', 'group']
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'user' AND `django_content_type`.`app_label` = 'auth'); args=('user', 'auth')
+(0.000) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'user' AND `django_content_type`.`app_label` = 'auth'); args=('user', 'auth')
+(0.000) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('auth', 'user'); args=['auth', 'user']
+(0.001) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (2, 3, 4) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(2, 3, 4)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add permission', 2, 'add_permission'), ('Can change permission', 2, 'change_permission'), ('Can delete permission', 2, 'delete_permission'), ('Can add group', 3, 'add_group'), ('Can change group', 3, 'change_group'), ('Can delete group', 3, 'delete_group'), ('Can add user', 4, 'add_user'), ('Can change user', 4, 'change_user'), ('Can delete user', 4, 'delete_user'); args=(u'Can add permission', 2, u'add_permission', u'Can change permission', 2, u'change_permission', u'Can delete permission', 2, u'delete_permission', u'Can add group', 3, u'add_group', u'Can change group', 3, u'change_group', u'Can delete group', 3, u'delete_group', u'Can add user', 4, u'add_user', u'Can change user', 4, u'change_user', u'Can delete user', 4, u'delete_user')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'auth'; args=('auth',)
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'contenttype' AND `django_content_type`.`app_label` = 'contenttypes'); args=('contenttype', 'contenttypes')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'contenttype' AND `django_content_type`.`app_label` = 'contenttypes'); args=('contenttype', 'contenttypes')
+(0.001) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('contenttypes', 'contenttype'); args=['contenttypes', 'contenttype']
+(0.001) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (5) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(5,)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add content type', 5, 'add_contenttype'), ('Can change content type', 5, 'change_contenttype'), ('Can delete content type', 5, 'delete_contenttype'); args=(u'Can add content type', 5, u'add_contenttype', u'Can change content type', 5, u'change_contenttype', u'Can delete content type', 5, u'delete_contenttype')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'contenttypes'; args=('contenttypes',)
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'session' AND `django_content_type`.`app_label` = 'sessions'); args=('session', 'sessions')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'session' AND `django_content_type`.`app_label` = 'sessions'); args=('session', 'sessions')
+(0.001) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('sessions', 'session'); args=['sessions', 'session']
+(0.001) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (6) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(6,)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add session', 6, 'add_session'), ('Can change session', 6, 'change_session'), ('Can delete session', 6, 'delete_session'); args=(u'Can add session', 6, u'add_session', u'Can change session', 6, u'change_session', u'Can delete session', 6, u'delete_session')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'sessions'; args=('sessions',)
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'subject' AND `django_content_type`.`app_label` = 'Subjects'); args=('subject', 'Subjects')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'subject' AND `django_content_type`.`app_label` = 'Subjects'); args=('subject', 'Subjects')
+(0.001) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('Subjects', 'subject'); args=['Subjects', 'subject']
+(0.001) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (7) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(7,)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add subject', 7, 'add_subject'), ('Can change subject', 7, 'change_subject'), ('Can delete subject', 7, 'delete_subject'); args=(u'Can add subject', 7, u'add_subject', u'Can change subject', 7, u'change_subject', u'Can delete subject', 7, u'delete_subject')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'Subjects'; args=('Subjects',)
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'course' AND `django_content_type`.`app_label` = 'Courses'); args=('course', 'Courses')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'course' AND `django_content_type`.`app_label` = 'Courses'); args=('course', 'Courses')
+(0.001) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('Courses', 'course'); args=['Courses', 'course']
+(0.001) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (8) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(8,)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add course', 8, 'add_course'), ('Can change course', 8, 'change_course'), ('Can delete course', 8, 'delete_course'); args=(u'Can add course', 8, u'add_course', u'Can change course', 8, u'change_course', u'Can delete course', 8, u'delete_course')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'Courses'; args=('Courses',)
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'student' AND `django_content_type`.`app_label` = 'Students'); args=('student', 'Students')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'student' AND `django_content_type`.`app_label` = 'Students'); args=('student', 'Students')
+(0.001) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('Students', 'student'); args=['Students', 'student']
+(0.001) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (9) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(9,)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add student', 9, 'add_student'), ('Can change student', 9, 'change_student'), ('Can delete student', 9, 'delete_student'); args=(u'Can add student', 9, u'add_student', u'Can change student', 9, u'change_student', u'Can delete student', 9, u'delete_student')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'Students'; args=('Students',)
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'sports' AND `django_content_type`.`app_label` = 'Facilities'); args=('sports', 'Facilities')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'sports' AND `django_content_type`.`app_label` = 'Facilities'); args=('sports', 'Facilities')
+(0.001) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('Facilities', 'sports'); args=['Facilities', 'sports']
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'library' AND `django_content_type`.`app_label` = 'Facilities'); args=('library', 'Facilities')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE (`django_content_type`.`model` = 'library' AND `django_content_type`.`app_label` = 'Facilities'); args=('library', 'Facilities')
+(0.001) INSERT INTO `django_content_type` (`app_label`, `model`) VALUES ('Facilities', 'library'); args=['Facilities', 'library']
+(0.002) SELECT `auth_permission`.`content_type_id`, `auth_permission`.`codename` FROM `auth_permission` INNER JOIN `django_content_type` ON (`auth_permission`.`content_type_id` = `django_content_type`.`id`) WHERE `auth_permission`.`content_type_id` IN (10, 11) ORDER BY `django_content_type`.`app_label` ASC, `django_content_type`.`model` ASC, `auth_permission`.`codename` ASC; args=(10, 11)
+(0.001) INSERT INTO `auth_permission` (`name`, `content_type_id`, `codename`) VALUES ('Can add sports', 10, 'add_sports'), ('Can change sports', 10, 'change_sports'), ('Can delete sports', 10, 'delete_sports'), ('Can add library', 11, 'add_library'), ('Can change library', 11, 'change_library'), ('Can delete library', 11, 'delete_library'); args=(u'Can add sports', 10, u'add_sports', u'Can change sports', 10, u'change_sports', u'Can delete sports', 10, u'delete_sports', u'Can add library', 11, u'add_library', u'Can change library', 11, u'change_library', u'Can delete library', 11, u'delete_library')
+(0.001) SELECT `django_content_type`.`id`, `django_content_type`.`app_label`, `django_content_type`.`model` FROM `django_content_type` WHERE `django_content_type`.`app_label` = 'Facilities'; args=('Facilities',)
